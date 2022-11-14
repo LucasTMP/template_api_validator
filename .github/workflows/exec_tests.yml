@@ -1,0 +1,33 @@
+name: exec testes
+
+on: 
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+
+  build:
+    name: Ambiente de Testes
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['6.0.x']
+
+    steps:
+    
+      - name: Enviar repositório e configurar o ambiente
+        uses: actions/checkout@v2
+        
+      - name: Instalar o .NET Core SDK ${{ matrix.dotnet-version }} (dotnet)
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+         
+      - name: Executar os testes de unidade e integração
+        run: dotnet test src/Template.Validator.Tests/Template.Validator.Tests.csproj
