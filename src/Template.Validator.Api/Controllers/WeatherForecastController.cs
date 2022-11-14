@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Template.Validator.Api.Controllers.Bases;
 
 namespace Template.Validator.Api.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : StandardController
     {
         private static readonly string[] Summaries = new[]
         {
