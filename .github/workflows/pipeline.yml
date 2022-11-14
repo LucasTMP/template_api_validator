@@ -69,5 +69,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Running Horusec Security
         run: |
-          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s ${{horusec-version}}
+          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s ${{matrix.horusec-version}}
           horusec start -p="./" -e="true"
