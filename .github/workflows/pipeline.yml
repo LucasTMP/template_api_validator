@@ -60,10 +60,14 @@ jobs:
   horusec-security:
     name: Scan Code With Horusec
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        horusec-version: ['latest']
+        
     steps:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Running Horusec Security
         run: |
-          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s ${{horusec-version}}
           horusec start -p="./" -e="true"
