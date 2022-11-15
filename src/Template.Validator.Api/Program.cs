@@ -9,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApiDbContext>(options => {
-    options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;");
+    options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;Database=TemplateValidator;");
     options.EnableSensitiveDataLogging();
     options.LogTo(Console.WriteLine, LogLevel.Information);
 });
