@@ -1,12 +1,31 @@
 using Microsoft.EntityFrameworkCore;
 using Template.Validator.Infra.Data;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using Template.Validator.Api.Web_Flow.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(config => 
+{
+    config.Filters.Add(new ViewModelValidationFilter());
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddFluentValidation(options =>
+{
+    options.ImplicitlyValidateChildProperties = true;
+    options.ImplicitlyValidateRootCollectionElements = true;
+    options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+});
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 
 builder.Services.AddDbContext<ApiDbContext>(options => {
     options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;Database=TemplateValidator;");
