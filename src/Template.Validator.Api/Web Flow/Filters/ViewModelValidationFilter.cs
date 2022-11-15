@@ -6,7 +6,7 @@ using Template.Validator.Api.Controllers.Bases;
 
 namespace Template.Validator.Api.Web_Flow.Filters;
 
-    public class ContractValidationFilter : IAsyncActionFilter
+    public class ViewModelValidationFilter : IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
