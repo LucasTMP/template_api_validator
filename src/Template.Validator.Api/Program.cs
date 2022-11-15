@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Template.Validator.Infra.Data;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
@@ -10,6 +12,7 @@ builder.Services.AddControllers(config =>
 {
     config.Filters.Add(new ViewModelValidationFilter());
 });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddFluentValidation(options =>
@@ -23,6 +26,12 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     options.SuppressModelStateInvalidFilter = true;
 });
 
+
+builder.Services.AddDbContext<ApiDbContext>(options => {
+    options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;Database=TemplateValidator;");
+    options.EnableSensitiveDataLogging();
+    options.LogTo(Console.WriteLine, LogLevel.Information);
+});
 
 var app = builder.Build();
 
@@ -38,4 +47,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MigrationInitialisation();
+
 app.Run();
+
+
+
+public static class DatabaseManagementService
+{
+    public static void MigrationInitialisation(this IApplicationBuilder app)
+    {
+        using (var serviceScope = app.ApplicationServices.CreateScope())
+        {
+            serviceScope.ServiceProvider.GetService<ApiDbContext>().Database.Migrate();
+        }
+    }
+}
