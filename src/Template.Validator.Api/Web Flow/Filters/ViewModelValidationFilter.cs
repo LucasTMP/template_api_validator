@@ -6,30 +6,32 @@ using Template.Validator.Api.Controllers.Bases;
 
 namespace Template.Validator.Api.Web_Flow.Filters;
 
-    public class ViewModelValidationFilter : IAsyncActionFilter
+public class ViewModelValidationFilter : IAsyncActionFilter
+{
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        if (!context.ModelState.IsValid)
         {
-            if (!context.ModelState.IsValid)
+            if (context.HttpContext.Items[context.HttpContext.TraceIdentifier] is ValidationResult result)
             {
-                if (context.HttpContext.Items[context.HttpContext.TraceIdentifier] is ValidationResult result)
-                {
-                    var response = new DefaultResponse(
-                        statusCode: HttpStatusCode.BadRequest,
-                        success: false,
-                        errors: result.Errors.Select(e => e.ErrorMessage));
+                var response = new DefaultResponse(
+                    statusCode: HttpStatusCode.BadRequest,
+                    success: false,
+                    errors: result.Errors.Select(e => e.ErrorMessage));
 
-                 context.Result = new BadRequestObjectResult(response);
-                }else {  
-                    var response = new DefaultResponse(
-                        statusCode: HttpStatusCode.BadRequest,
-                        success: false,
-                        errors: context.ModelState.Values.SelectMany(v => v.Errors).Select(x => x.ErrorMessage));
-
-                    context.Result = new BadRequestObjectResult(response);
-                }
-                return;
+                context.Result = new BadRequestObjectResult(response);
             }
-            await next();
+            else
+            {
+                var response = new DefaultResponse(
+                    statusCode: HttpStatusCode.BadRequest,
+                    success: false,
+                    errors: context.ModelState.Values.SelectMany(v => v.Errors).Select(x => x.ErrorMessage));
+
+                context.Result = new BadRequestObjectResult(response);
+            }
+            return;
         }
+        await next();
     }
+}
