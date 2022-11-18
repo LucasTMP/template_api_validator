@@ -79,7 +79,6 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            var path = "/dashboard";
             endpoints.MapHealthChecks("/health", new HealthCheckOptions
             {
                 Predicate = p => true,
@@ -87,7 +86,6 @@ public class Startup
             });
             endpoints.MapHealthChecksUI(options =>
             {
-                options.UIPath = path;
                 options.AddCustomStylesheet("Resources/HealthChecksUIStyle.css");
             });
             endpoints.MapControllers();
