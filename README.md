@@ -26,6 +26,14 @@ Project focused on creating a template to serve as a knowledge repository, where
 
 ## - API documentation
 
+#### Dashboard Health Checks
+
+```http
+  * /healthchecks-ui
+```
+
+---
+
 #### Returns a "pong"
 
 ```http
