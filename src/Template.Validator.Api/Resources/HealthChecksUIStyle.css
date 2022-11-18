@@ -1,0 +1,30 @@
+﻿:root {
+    --primaryColor: #ff3300;
+    --secondaryColor: #349b72;
+    --darkColor: #1f1f1f;
+    --midDarkColor: #ff3300;
+    --grayColor: #ffff;
+    --midGrayColor: #4c4b4b;
+    --lightColor: #1f1f1f;
+    --dangerColor: #d26b4e;
+    --warningColor: #ff8f30;
+    --bgMain: var(--lightColor);
+    --bgSecondary: #4c4b4b;
+    --fcNegative: #ffffff;
+    --fcBase: var(--grayColor);
+    --bgAside: var(--midDarkColor);
+    --bgMenuActive: var(--darkColor);
+    --bcMenuActive: var(--primaryColor);
+    --bcInput: var(--midGrayColor);
+    --bcInputHover: var(--primaryColor);
+    --bgInputHover: var(--primaryColor);
+    --fcInputHover: var(--primaryColor);
+    --bcTable: var(--midGrayColor);
+    --bgTable: var(--bgSecondary);
+    --bgTableSecondary: #000000;
+    --bgTableButton: var(--bgSecondary);
+    --bgButton: #bb1e1e;
+    --bgImageDarken: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    --bgImageLigthen: linear-gradient( rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8) );
+    --logoImageUrl: url('https://i.ibb.co/2F6cZZd/Capturar.png');
+}
