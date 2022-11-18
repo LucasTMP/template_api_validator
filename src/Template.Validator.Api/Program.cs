@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore;
-using Template.Validator.Api;
 
 namespace Template.Validator.Api;
 public class Program

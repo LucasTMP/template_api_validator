@@ -1,11 +1,8 @@
-﻿
-
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
@@ -74,7 +71,7 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        
+
         app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseHttpsRedirection();
         app.UseRouting();
@@ -82,6 +79,7 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            var path = "/dashboard";
             endpoints.MapHealthChecks("/health", new HealthCheckOptions
             {
                 Predicate = p => true,
@@ -89,7 +87,7 @@ public class Startup
             });
             endpoints.MapHealthChecksUI(options =>
             {
-                options.UIPath = "/dashboard";
+                options.UIPath = path;
                 options.AddCustomStylesheet("Resources/HealthChecksUIStyle.css");
             });
             endpoints.MapControllers();
@@ -97,48 +95,48 @@ public class Startup
     }
 }
 
-    public static class DatabaseManagementService
+public static class DatabaseManagementService
+{
+    public static void MigrationInitialisation(this IApplicationBuilder app)
     {
-        public static void MigrationInitialisation(this IApplicationBuilder app)
-        {
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-                serviceScope.ServiceProvider.GetService<ApiDbContext>()?.Database.Migrate();
-        }
+        using (var serviceScope = app.ApplicationServices.CreateScope())
+            serviceScope.ServiceProvider.GetService<ApiDbContext>()?.Database.Migrate();
     }
+}
 
-    public class GoogleHealthCheck : IHealthCheck
-     {
-        public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
-        {
-            var ping = new Ping();
-            PingReply pingStatus = ping.Send("www.google.com");
-
-            if (pingStatus.Status == IPStatus.Success && pingStatus.RoundtripTime < 500)
-                return Task.FromResult(HealthCheckResult.Healthy());
-
-            if (pingStatus.RoundtripTime >= 500)
-                return Task.FromResult(HealthCheckResult.Degraded());
-            else
-                return Task.FromResult(HealthCheckResult.Unhealthy(description: "failed"));
-        }  
-    }
-
-    public class GitHubAPIHealthCheck : IHealthCheck
+public class GoogleHealthCheck : IHealthCheck
+{
+    public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
     {
-        public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
-        {
-            using HttpClient client = new();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-            client.DefaultRequestHeaders.Add("User-Agent", ".NET");
+        var ping = new Ping();
+        PingReply pingStatus = ping.Send("www.google.com");
 
-            var result = client.GetAsync("https://api.github.com/").Result;
+        if (pingStatus.Status == IPStatus.Success && pingStatus.RoundtripTime < 500)
+            return Task.FromResult(HealthCheckResult.Healthy());
 
-            if (result.IsSuccessStatusCode)
-                return Task.FromResult(HealthCheckResult.Healthy());
-            else
-                return Task.FromResult(HealthCheckResult.Unhealthy(description: "failed"));
-        }
+        if (pingStatus.RoundtripTime >= 500)
+            return Task.FromResult(HealthCheckResult.Degraded());
+        else
+            return Task.FromResult(HealthCheckResult.Unhealthy(description: "failed"));
     }
+}
+
+public class GitHubAPIHealthCheck : IHealthCheck
+{
+    public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
+    {
+        using HttpClient client = new();
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+        client.DefaultRequestHeaders.Add("User-Agent", ".NET");
+
+        var result = client.GetAsync("https://api.github.com/").Result;
+
+        if (result.IsSuccessStatusCode)
+            return Task.FromResult(HealthCheckResult.Healthy());
+        else
+            return Task.FromResult(HealthCheckResult.Unhealthy(description: "failed"));
+    }
+}
 
