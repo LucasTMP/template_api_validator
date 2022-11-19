@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Net.NetworkInformation;
 
-namespace Template.Validator.Api.Web_Flow.HealthCheck
+namespace Template.Validator.Api.WebFlow.HealthCheck
 {
     public class GoogleHealthCheck : IHealthCheck
     {

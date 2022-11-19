@@ -3,7 +3,7 @@ using System.Text.Json;
 using Template.Validator.Api.Controllers.Bases;
 using Template.Validator.Core.Extensions;
 
-namespace Template.Validator.Api.Web_Flow.Middleware;
+namespace Template.Validator.Api.WebFlow.Middleware;
 
 public class ExceptionHandlingMiddleware
 {

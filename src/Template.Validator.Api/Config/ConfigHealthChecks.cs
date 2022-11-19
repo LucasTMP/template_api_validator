@@ -1,7 +1,7 @@
 ﻿using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Template.Validator.Api.Web_Flow.HealthCheck;
+using Template.Validator.Api.WebFlow.HealthCheck;
 
 namespace Template.Validator.Api.Config;
 

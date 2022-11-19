@@ -1,5 +1,5 @@
-﻿using Template.Validator.Api.Web_Flow.Filters;
-using Template.Validator.Api.Web_Flow.Middleware;
+﻿using Template.Validator.Api.WebFlow.Filters;
+using Template.Validator.Api.WebFlow.Middleware;
 
 namespace Template.Validator.Api.Config
 {

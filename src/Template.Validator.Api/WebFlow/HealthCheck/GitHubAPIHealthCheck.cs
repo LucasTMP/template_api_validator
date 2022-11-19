@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Net.Http.Headers;
 
-namespace Template.Validator.Api.Web_Flow.HealthCheck;
+namespace Template.Validator.Api.WebFlow.HealthCheck;
 
 public class GitHubAPIHealthCheck : IHealthCheck
 {
@@ -13,7 +13,7 @@ public class GitHubAPIHealthCheck : IHealthCheck
         new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
         client.DefaultRequestHeaders.Add("User-Agent", ".NET");
 
-        var result = client.GetAsync("https://api.github.com/").Result;
+        var result = client.GetAsync("https://httpstat.us/200").Result;
 
         if (result.IsSuccessStatusCode)
             return Task.FromResult(HealthCheckResult.Healthy());

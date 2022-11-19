@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
 using Template.Validator.Api.Controllers.Bases;
 
-namespace Template.Validator.Api.Web_Flow.Filters;
+namespace Template.Validator.Api.WebFlow.Filters;
 
 public class ViewModelValidationFilter : IAsyncActionFilter
 {
