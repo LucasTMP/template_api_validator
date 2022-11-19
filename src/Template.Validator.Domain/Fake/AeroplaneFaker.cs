@@ -9,8 +9,8 @@ public class AeroplaneFaker : Faker<Aeroplane>
     public AeroplaneFaker(string locale = "pt_BR") : base(locale)
     {
         RuleFor(o => o.Model, f => f.PickRandom(models));
-        RuleFor(o => o.TurbineAmount, f => f.PickRandom(new[] {2,4,6}));
-        RuleFor(o => o.PassengersAmount, f => f.PickRandom(new[] {20,40,60}));
-        RuleFor(o => o.ChargeCapacity, f => f.PickRandom(new[] {200d,400d,600d}));
+        RuleFor(o => o.TurbineAmount, f => f.PickRandom(new[] { 2, 4, 6 }));
+        RuleFor(o => o.PassengersAmount, f => f.PickRandom(new[] { 20, 40, 60 }));
+        RuleFor(o => o.ChargeCapacity, f => f.PickRandom(new[] { 200d, 400d, 600d }));
     }
 }
