@@ -1,4 +1,4 @@
-﻿using Template.Validator.Api.Config;
+using Template.Validator.Api.Config;
 
 namespace Template.Validator.Api;
 
