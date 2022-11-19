@@ -10,8 +10,6 @@ public static class ConfigFluentValidation
     {
         services.AddFluentValidation(options =>
         {
-            options.ImplicitlyValidateChildProperties = true;
-            options.ImplicitlyValidateRootCollectionElements = true;
             options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         });
 

@@ -23,7 +23,7 @@ public class TestsController : StandardController
     /// <summary>Endpoint to verify that the application continues to respond.</summary>
     /// <remarks>Exemple Request: 
     ///   
-    ///     Post /ping  (FromQueryParams) [DTO PingRequest]
+    ///     Post /ping  [DTO PingRequest]
     ///     {
     ///        "Message": "Pong"
     ///     }</remarks>
