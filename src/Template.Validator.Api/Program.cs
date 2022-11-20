@@ -1,14 +1,29 @@
-using Microsoft.AspNetCore;
+using Serilog;
+using Template.Validator.Api;
+using Template.Validator.Api.Config;
 
-namespace Template.Validator.Api;
-public class Program
+try
 {
-    public static void Main(string[] args)
-    {
-        CreateWebHostBuilder(args).Build().Run();
-    }
+    var builder = WebApplication.CreateBuilder(args);
 
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-                    WebHost.CreateDefaultBuilder(args)
-                           .UseStartup<Startup>();
+    builder.UseConfigBuilder();
+
+    var startup = new Startup(builder.Configuration);
+    startup.ConfigureServices(builder.Services);
+
+    var app = builder.Build();
+    startup.Configure(app, app.Environment);
+
+    Log.Information("Starting app.");
+    app.Run();   
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Fatal Error app.");
+    throw;
+}
+finally
+{
+    Log.Information("App shutting down.");
+    Log.CloseAndFlush();
 }

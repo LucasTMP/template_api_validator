@@ -23,7 +23,7 @@ public static class ConfigHealthChecks
         services.AddHealthChecksUI(options =>
         {
             options.SetApiMaxActiveRequests(3);
-            options.SetEvaluationTimeInSeconds(5);
+            options.SetEvaluationTimeInSeconds(60);
             options.MaximumHistoryEntriesPerEndpoint(10);
             options.AddHealthCheckEndpoint("API With Health Checks", "/health");
         }).AddSqlServerStorage("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;Database=TemplateValidator;");

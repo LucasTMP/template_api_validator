@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Template.Validator.Infra.Data;
 
 namespace Template.Validator.Api.Config
@@ -11,7 +12,7 @@ namespace Template.Validator.Api.Config
             {
                 options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;Database=TemplateValidator;");
                 options.EnableSensitiveDataLogging();
-                options.LogTo(Console.WriteLine, LogLevel.Information);
+                options.LogTo(Log.Logger.Debug, LogLevel.Debug);
             });
         }
 
