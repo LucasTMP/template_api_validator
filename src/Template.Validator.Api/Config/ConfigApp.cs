@@ -1,4 +1,6 @@
-﻿using Template.Validator.Api.WebFlow.Filters;
+﻿using Serilog;
+using Serilog.Context;
+using Template.Validator.Api.WebFlow.Filters;
 using Template.Validator.Api.WebFlow.Middleware;
 
 namespace Template.Validator.Api.Config
@@ -16,7 +18,9 @@ namespace Template.Validator.Api.Config
 
         public static void UseConfigApp(this IApplicationBuilder app)
         {
+            app.UseSerilogRequestLogging(opts => opts.AddConfig());
             app.UseMiddleware<ExceptionHandlingMiddleware>();
+            app.UseMiddleware<RequestLogContextMiddleware>();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

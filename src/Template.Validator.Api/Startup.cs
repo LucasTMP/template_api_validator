@@ -4,6 +4,13 @@ namespace Template.Validator.Api;
 
 public class Startup
 {
+    public IConfiguration Configuration { get; }
+
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddConfigFluentValidation();
@@ -13,7 +20,7 @@ public class Startup
         services.AddConfigDbContext();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(WebApplication app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {

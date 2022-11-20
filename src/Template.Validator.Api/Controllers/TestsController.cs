@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -36,7 +37,8 @@ public class TestsController : StandardController
     [HttpPost("ping")]
     public ActionResult<DefaultResponse> Ping(PingRequest request)
     {
-        _logger.LogInformation($"Acess Endpoint Ping with message: {request.Message}");
+        _logger.LogInformation("Processing HTTP request with data {@PingRequest}", request);
+        _logger.LogInformation("Processing HTTP request with CorrelationId/TarcerID: {CorrelationId}");
         return new DefaultResponse(HttpStatusCode.OK, true, new PingResponse("Pong"));
     }
 
