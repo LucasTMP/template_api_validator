@@ -10,6 +10,7 @@ namespace Template.Validator.Api.Config
         public static void AddConfigApp(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers(config =>
             {
                 config.Filters.Add(new ViewModelValidationFilter());
