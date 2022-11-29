@@ -1,4 +1,4 @@
-﻿namespace Template.Validator.Domain.Models;
+﻿namespace Template.Validator.Core.Models;
 
 public abstract class Entity
 {

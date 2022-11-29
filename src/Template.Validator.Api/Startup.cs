@@ -15,6 +15,8 @@ public class Startup
     {
         services.AddConfigFluentValidation();
         services.AddConfigHealthChecks();
+        services.AddHttpClients(Configuration);
+        services.AddDependencyInjection();
         services.AddConfigSwagger();
         services.AddConfigApp();
         services.AddConfigDbContext();

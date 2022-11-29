@@ -21,6 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Template.Validator.Core\Template.Validator.Core.csproj" />
 		<ProjectReference Include="..\Template.Validator.Domain\Template.Validator.Domain.csproj" />
 	</ItemGroup>
 

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Template.Validator.Api.Contracts;
 using Template.Validator.Api.Controllers.Bases;
 using Template.Validator.Api.DTOs;
@@ -7,7 +8,9 @@ using Template.Validator.Domain.Models;
 
 namespace Template.Validator.Api.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/v1/client")]
+    [Produces("application/json")]
+    [ApiVersion("1"), ApiExplorerSettings(GroupName = "Client"), SwaggerTag(description: "Endpoints xxxxxxxxx")]
     public class ClientController : StandardController
     {
         //private readonly IClientService _service;

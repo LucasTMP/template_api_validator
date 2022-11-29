@@ -1,4 +1,6 @@
-﻿namespace Template.Validator.Domain.Models;
+﻿using Template.Validator.Core.Models;
+
+namespace Template.Validator.Domain.Models;
 
 public class Client : Entity
 {
